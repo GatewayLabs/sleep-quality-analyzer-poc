@@ -35,7 +35,7 @@ export default function SleepAnalyzer() {
       setResults(result.data);
       setError(null);
     } else {
-      setError(result.error);
+      setError(result?.error as string);
       setResults(null);
     }
   }
@@ -45,10 +45,10 @@ export default function SleepAnalyzer() {
       <Card className="mx-auto max-w-2xl">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl md:text-3xl">
-            Sleep Quality Analyzer
+            Secure Sleep Pattern Analyzer
           </CardTitle>
           <CardDescription>
-            Analyze your sleep patterns securely using advanced computation
+            Analyze your sleep patterns securely using encrypted computation
           </CardDescription>
         </CardHeader>
         <CardContent>
