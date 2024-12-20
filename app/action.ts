@@ -22,7 +22,7 @@ export async function analyzeSleep(formData: FormData) {
   try {
     const validatedData = SleepDataSchema.parse(parsedData);
 
-    const response = await fetch(process.env.API_URL, {
+    const response = await fetch(process.env.API_URL!, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
