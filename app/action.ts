@@ -22,16 +22,13 @@ export async function analyzeSleep(formData: FormData) {
   try {
     const validatedData = SleepDataSchema.parse(parsedData);
 
-    const response = await fetch(
-      "https://2pbvfzfwa22mle52mjamkbqjre0vzayi.lambda-url.ap-south-1.on.aws/",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(validatedData),
-      }
-    );
+    const response = await fetch(process.env.API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(validatedData),
+    });
 
     if (!response.ok) {
       throw new Error("Failed to analyze sleep data");
