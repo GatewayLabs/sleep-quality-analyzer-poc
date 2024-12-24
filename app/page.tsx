@@ -24,6 +24,7 @@ import {
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { analyzeSleep } from "./action";
 import { useFormStatus } from "react-dom";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 export default function SleepAnalyzer() {
   const [results, setResults] = useState<Record<string, string> | null>(null);
@@ -50,6 +51,9 @@ export default function SleepAnalyzer() {
           <CardDescription>
             Analyze your sleep patterns securely using encrypted computation
           </CardDescription>
+          <CardContent className="mt-4 mx-auto">
+            <ConnectButton label="Sign in" />
+          </CardContent>
         </CardHeader>
         <CardContent>
           <form action={handleSubmit} className="space-y-6">
