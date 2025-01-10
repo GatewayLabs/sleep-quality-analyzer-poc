@@ -51,7 +51,7 @@ export async function GET(request: Request) {
       });
     }
 
-    return Response.redirect("http://localhost:3000/dashboard");
+    return Response.redirect("http://localhost:3000/whoop");
   } catch (error) {
     console.error("WHOOP callback error:", error);
     return Response.json(

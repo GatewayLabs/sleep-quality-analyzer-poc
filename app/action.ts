@@ -34,7 +34,7 @@ export async function analyzeSleep(formData: FormData) {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(validatedData),
+      body: JSON.stringify({ route: "svn", metrics: validatedData }),
     });
 
     if (!response.ok) {

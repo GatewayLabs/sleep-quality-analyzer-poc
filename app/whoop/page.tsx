@@ -1,8 +1,10 @@
 import { cookies } from "next/headers";
-import { getWhoopProfile } from "@/lib/whoop";
+import { getSleepCollection } from "@/lib/whoop";
 
 export default async function DashboardPage() {
   const accessToken = cookies().get("whoop_access_token")?.value;
+
+  console.log(accessToken)
 
   if (!accessToken) {
     return (
@@ -24,7 +26,9 @@ export default async function DashboardPage() {
   }
 
   try {
-    const profile = await getWhoopProfile(accessToken);
+    const profile = await getSleepCollection(accessToken, { limit: 1 });
+
+    console.log(profile);
 
     return (
       <div className="p-8">
@@ -34,11 +38,11 @@ export default async function DashboardPage() {
           <div className="grid gap-4">
             <div>
               <span className="font-medium">Name: </span>
-              {profile.first_name} {profile.last_name}
+              {/* {profile.first_name} {profile.last_name} */}
             </div>
             <div>
               <span className="font-medium">Email: </span>
-              {profile.email}
+              {/* {profile.email} */}
             </div>
           </div>
         </div>
