@@ -11,8 +11,6 @@ export async function GET(request: Request) {
   const error = searchParams.get("error");
   const error_description = searchParams.get("error_description");
 
-  console.log("Callback params:", { code, state, error, error_description });
-
   if (error) {
     console.error("OAuth error:", error, error_description);
     return Response.json(
@@ -43,6 +41,12 @@ export async function GET(request: Request) {
       maxAge: tokens.expires_in,
     });
 
+    cookies().set("authenticated", "true", {
+      httpOnly: false,
+      sameSite: "lax",
+      maxAge: tokens.expires_in,
+    });
+
     if (tokens.refresh_token) {
       cookies().set("whoop_refresh_token", tokens.refresh_token, {
         httpOnly: true,
@@ -51,7 +55,7 @@ export async function GET(request: Request) {
       });
     }
 
-    return Response.redirect("http://localhost:3000/whoop");
+    return Response.redirect("http://localhost:3000/#whoop");
   } catch (error) {
     console.error("WHOOP callback error:", error);
     return Response.json(

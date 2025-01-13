@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { WHOOP_BASE_URL, REDIRECT_URI } from "@/constants";
 
-interface WhoopSleepData {
+export interface WhoopSleepData {
   id: number;
   user_id: number;
   created_at: string;
@@ -26,7 +26,7 @@ interface WhoopSleepData {
   };
 }
 
-interface SleepResponse {
+export interface SleepResponse {
   records: WhoopSleepData[];
   next_token?: string;
 }
@@ -137,39 +137,20 @@ export async function refreshWhoopToken(refreshToken: string) {
   return response.json();
 }
 
-export async function getSleepCollection(
-  accessToken: string,
-  options?: {
-    limit?: number;
-    start?: string;
-    end?: string;
-    nextToken?: string;
-  }
-) {
+export async function getSleepCollection(options?: {
+  limit?: number;
+  start?: string;
+  end?: string;
+  nextToken?: string;
+}) {
   const params = new URLSearchParams();
-
-  if (options?.limit) {
-    params.append("limit", options.limit.toString());
-  }
-  if (options?.start) {
-    params.append("start", options.start);
-  }
-  if (options?.end) {
-    params.append("end", options.end);
-  }
-  if (options?.nextToken) {
-    params.append("nextToken", options.nextToken);
-  }
+  if (options?.limit) params.append("limit", options.limit.toString());
+  if (options?.start) params.append("start", options.start);
+  if (options?.end) params.append("end", options.end);
+  if (options?.nextToken) params.append("nextToken", options.nextToken);
 
   const queryString = params.toString() ? `?${params.toString()}` : "";
-  const url = `https://api.prod.whoop.com/developer/v1/activity/sleep${queryString}`;
-  console.log(url);
-
-  const response = await fetch(url, {
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
+  const response = await fetch(`/api/whoop/sleep${queryString}`);
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({}));
