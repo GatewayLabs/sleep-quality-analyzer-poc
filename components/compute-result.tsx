@@ -18,20 +18,6 @@ const SleepAnalysis = ({
   data: SleepAnalysisData;
   sleepData: FormattedSleepResponse;
 }) => {
-  const formatChange = (value: number) => {
-    const rounded = value.toFixed(1);
-    const isPositive = value > 0;
-    return (
-      <span
-        className={`flex items-center ${
-          isPositive ? "text-green-600" : "text-red-600"
-        }`}
-      >
-        {isPositive ? "↑" : "↓"} {Math.abs(Number(rounded))}%
-      </span>
-    );
-  };
-
   const formatTime = (minutes: number) => {
     const hours = Math.floor(minutes / 60);
     const mins = minutes % 60;
@@ -67,7 +53,7 @@ const SleepAnalysis = ({
 
     return (
       <div className="text-sm text-muted-foreground space-y-1">
-        <div>You're: {Math.abs(percentageDiff).toFixed(2)}%</div>
+        <div>You`re: {Math.abs(percentageDiff).toFixed(2)}%</div>
         <div>{comparisonWord}</div>
         <div>the average</div>
       </div>
