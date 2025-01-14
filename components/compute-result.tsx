@@ -38,33 +38,6 @@ const SleepAnalysis = ({
     return `${hours}h ${mins}m`;
   };
 
-  const ComparisonText = ({
-    value,
-    average,
-  }: {
-    value: number;
-    average: number;
-  }) => {
-    const difference = value - average;
-    const color =
-      difference > 0
-        ? "text-green-500"
-        : difference < 0
-        ? "text-red-500"
-        : "text-gray-500";
-    return (
-      <div className={`text-sm ${color}`}>
-        Average: {average}
-        {typeof value === "number" && typeof average === "number" && (
-          <span className="ml-2">
-            ({difference > 0 ? "+" : ""}
-            {difference.toFixed(1)}%)
-          </span>
-        )}
-      </div>
-    );
-  };
-
   const formatMillisToHours = (millis: number) => {
     const hours = Math.floor(millis / (1000 * 60 * 60));
     const minutes = Math.floor((millis % (1000 * 60 * 60)) / (1000 * 60));
