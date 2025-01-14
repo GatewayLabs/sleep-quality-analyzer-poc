@@ -16,13 +16,13 @@ import { Whoop } from "../components/whoop";
 
 export default function SleepAnalyzer() {
   const { isConnected } = useAccount();
-  const [activeComponent, setActiveComponent] = useState("manual");
+  const [activeComponent, setActiveComponent] = useState("whoop");
 
   useEffect(() => {
     const handleHashChange = () => {
       if (typeof window !== "undefined") {
         const hash = window.location.hash.replace("#", "");
-        setActiveComponent(hash || "manual");
+        setActiveComponent(hash || "whoop");
       }
     };
 
@@ -61,20 +61,6 @@ export default function SleepAnalyzer() {
             </Alert>
           ) : (
             <>
-              <div className="flex justify-center space-x-4 mb-4">
-                
-                <button
-                  className={`px-4 py-2 rounded transition-colors ${
-                    activeComponent === "whoop"
-                      ? "bg-black text-white"
-                      : "bg-gray-200 text-black hover:bg-gray-300"
-                  }`}
-                  onClick={() => switchComponent("whoop")}
-                  disabled={activeComponent === "whoop"}
-                >
-                  Get from Whoop
-                </button>
-              </div>
               <div>
                 {activeComponent === "manual" && (
                   <ManualForm isConnected={isConnected} />
