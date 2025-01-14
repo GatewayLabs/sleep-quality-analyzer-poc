@@ -44,6 +44,36 @@ const SleepAnalysis = ({
     return `${hours}h ${minutes}m`;
   };
 
+  const ComparisonText = ({
+    difference,
+    comparing,
+    percentageDiff,
+  }: {
+    difference: number;
+    comparing: number;
+    percentageDiff: number;
+  }) => {
+    const isAbove = Math.abs(difference) > comparing;
+    const isEqual = Math.abs(difference) === comparing;
+
+    let comparisonWord;
+    if (isEqual || percentageDiff === 0) {
+      comparisonWord = <span className="text-green-500">ABOVE</span>;
+    } else if (isAbove) {
+      comparisonWord = <span className="text-green-500">ABOVE</span>;
+    } else {
+      comparisonWord = <span className="text-red-500">BELOW</span>;
+    }
+
+    return (
+      <div className="text-sm text-muted-foreground space-y-1">
+        <div>You're: {Math.abs(percentageDiff).toFixed(2)}%</div>
+        <div>{comparisonWord}</div>
+        <div>the average</div>
+      </div>
+    );
+  };
+
   return (
     <div className="p-6 space-y-6">
       <h2 className="text-2xl font-bold">Sleep Analysis</h2>
@@ -59,18 +89,18 @@ const SleepAnalysis = ({
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="text-2xl font-bold">
-              {sleepData.score.sleep_performance_percentage}%
+              {sleepData.score.sleep_performance_percentage.toFixed(2)}%
             </div>
             <div className="text-sm text-muted-foreground">
-              Average: {data.sleep_performance_percentage.average}%
+              Average: {data.sleep_performance_percentage.average.toFixed(2)}%
             </div>
-
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              Change:{" "}
-              {formatChange(
+            <ComparisonText
+              difference={sleepData.score.sleep_performance_percentage}
+              comparing={data.sleep_performance_percentage.average}
+              percentageDiff={
                 data.sleep_performance_percentage.percentage_difference
-              )}
-            </div>
+              }
+            />
           </CardContent>
         </Card>
 
@@ -84,17 +114,18 @@ const SleepAnalysis = ({
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="text-2xl font-bold">
-              {sleepData.score.sleep_efficiency_percentage}%
+              {sleepData.score.sleep_efficiency_percentage.toFixed(2)}%
             </div>
             <div className="text-sm text-muted-foreground">
-              Average: {data.sleep_efficiency_percentage.average}%
+              Average: {data.sleep_efficiency_percentage.average.toFixed(2)}%
             </div>
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              Change:{" "}
-              {formatChange(
+            <ComparisonText
+              difference={sleepData.score.sleep_efficiency_percentage}
+              comparing={data.sleep_efficiency_percentage.average}
+              percentageDiff={
                 data.sleep_efficiency_percentage.percentage_difference
-              )}
-            </div>
+              }
+            />
           </CardContent>
         </Card>
 
@@ -108,17 +139,18 @@ const SleepAnalysis = ({
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="text-2xl font-bold">
-              {sleepData.score.sleep_consistency_percentage}%
+              {sleepData.score.sleep_consistency_percentage.toFixed(2)}%
             </div>
             <div className="text-sm text-muted-foreground">
-              Average: {data.sleep_consistency_percentage.average}%
+              Average: {data.sleep_consistency_percentage.average.toFixed(2)}%
             </div>
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              Change:{" "}
-              {formatChange(
+            <ComparisonText
+              difference={sleepData.score.sleep_consistency_percentage}
+              comparing={data.sleep_consistency_percentage.average}
+              percentageDiff={
                 data.sleep_consistency_percentage.percentage_difference
-              )}
-            </div>
+              }
+            />
           </CardContent>
         </Card>
 
@@ -135,12 +167,13 @@ const SleepAnalysis = ({
             <div className="text-sm text-muted-foreground">
               Average: {data.stage_summary.sleep_cycle_count.average}
             </div>
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              Change:{" "}
-              {formatChange(
+            <ComparisonText
+              difference={sleepData.score.stage_summary.sleep_cycle_count}
+              comparing={data.stage_summary.sleep_cycle_count.average}
+              percentageDiff={
                 data.stage_summary.sleep_cycle_count.percentage_difference
-              )}
-            </div>
+              }
+            />
           </CardContent>
         </Card>
 
@@ -161,12 +194,13 @@ const SleepAnalysis = ({
               Average:{" "}
               {formatTime(data.stage_summary.total_in_bed_time.average)}
             </div>
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              Change:{" "}
-              {formatChange(
+            <ComparisonText
+              difference={sleepData.score.stage_summary.total_in_bed_time_milli}
+              comparing={data.stage_summary.total_in_bed_time.average}
+              percentageDiff={
                 data.stage_summary.total_in_bed_time.percentage_difference
-              )}
-            </div>
+              }
+            />
           </CardContent>
         </Card>
 
@@ -183,12 +217,13 @@ const SleepAnalysis = ({
             <div className="text-sm text-muted-foreground">
               Average: {data.stage_summary.disturbance_count.average}
             </div>
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              Change:{" "}
-              {formatChange(
+            <ComparisonText
+              difference={sleepData.score.stage_summary.disturbance_count}
+              comparing={data.stage_summary.disturbance_count.average}
+              percentageDiff={
                 data.stage_summary.disturbance_count.percentage_difference
-              )}
-            </div>
+              }
+            />
           </CardContent>
         </Card>
 
@@ -202,15 +237,16 @@ const SleepAnalysis = ({
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="text-2xl font-bold">
-              {sleepData.score.respiratory_rate} bpm
+              {sleepData.score.respiratory_rate.toFixed(2)} bpm
             </div>
             <div className="text-sm text-muted-foreground">
-              Average: {data.respiratory_rate.average}
+              Average: {data.respiratory_rate.average.toFixed(2)}
             </div>
-            <div className="text-sm text-muted-foreground flex items-center gap-2">
-              Change:{" "}
-              {formatChange(data.respiratory_rate.percentage_difference)}
-            </div>
+            <ComparisonText
+              difference={sleepData.score.respiratory_rate}
+              comparing={data.respiratory_rate.average}
+              percentageDiff={data.respiratory_rate.percentage_difference}
+            />
           </CardContent>
         </Card>
 
@@ -228,10 +264,11 @@ const SleepAnalysis = ({
               Average: {formatTime(data.sleep_needed.baseline.average)}
             </div>
 
-            <div className="text-sm text-muted-foreground">
-              Sleep Debt:{" "}
-              {formatTime(data.sleep_needed.need_from_sleep_debt.average)}
-            </div>
+            <ComparisonText
+              difference={sleepData.score.sleep_needed.baseline_milli}
+              comparing={data.sleep_needed.baseline.average}
+              percentageDiff={data.sleep_needed.baseline.percentage_difference}
+            />
           </CardContent>
         </Card>
       </div>

@@ -27,7 +27,7 @@ const SleepDashboard = ({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {sleepData.score.sleep_performance_percentage}%
+              {sleepData.score.sleep_performance_percentage.toFixed(2)}%
             </div>
             <Progress
               value={sleepData.score.sleep_performance_percentage}
@@ -43,7 +43,7 @@ const SleepDashboard = ({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {sleepData.score.sleep_consistency_percentage}%
+              {sleepData.score.sleep_consistency_percentage.toFixed(2)}%
             </div>
             <Progress
               value={sleepData.score.sleep_consistency_percentage}
@@ -59,7 +59,7 @@ const SleepDashboard = ({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {sleepData.score.sleep_efficiency_percentage}%
+              {sleepData.score.sleep_efficiency_percentage.toFixed(2)}%
             </div>
             <Progress
               value={sleepData.score.sleep_efficiency_percentage}
@@ -119,7 +119,7 @@ const SleepDashboard = ({
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">
-              {sleepData.score.respiratory_rate}
+              {sleepData.score.respiratory_rate.toFixed(2)}
               <span className="text-sm font-normal text-muted-foreground ml-1">
                 bpm
               </span>
