@@ -31,13 +31,6 @@ export default function SleepAnalyzer() {
     return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
-  const switchComponent = (componentName: string) => {
-    if (typeof window !== "undefined") {
-      window.location.hash = componentName;
-      setActiveComponent(componentName);
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
       <Card className="mx-auto max-w-2xl">
