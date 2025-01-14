@@ -134,7 +134,7 @@ export function Whoop() {
       {analysisData && (
         <div className="mt-6 p-4 bg-green-50 rounded-lg">
           <h3 className="text-lg font-semibold mb-3">Analysis Results</h3>
-          <SleepAnalysis data={analysisData} />
+          <SleepAnalysis data={analysisData} sleepData={sleepData!} />
         </div>
       )}
     </div>
