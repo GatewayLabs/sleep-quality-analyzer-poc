@@ -62,17 +62,7 @@ export default function SleepAnalyzer() {
           ) : (
             <>
               <div className="flex justify-center space-x-4 mb-4">
-                <button
-                  className={`px-4 py-2 rounded transition-colors ${
-                    activeComponent === "manual"
-                      ? "bg-black text-white"
-                      : "bg-gray-200 text-black hover:bg-gray-300"
-                  }`}
-                  onClick={() => switchComponent("manual")}
-                  disabled={activeComponent === "manual"}
-                >
-                  Manual
-                </button>
+                
                 <button
                   className={`px-4 py-2 rounded transition-colors ${
                     activeComponent === "whoop"
